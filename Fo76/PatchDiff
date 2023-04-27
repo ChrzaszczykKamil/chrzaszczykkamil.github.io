@@ -1,0 +1,1211 @@
+<html>
+    <head>
+        <title>Fallout 76 Patch Difference Viewer</title>
+        <style>
+            * {
+                font-family: sans-serif;
+                font-size: 20px;
+            }
+            td {
+                padding: 2px;
+            }
+            
+            table.infoTable {
+               border: 1px solid black;
+               border-collapse: collapse;
+            }
+            table.infoTable td {
+               border: 1px solid black;
+            }
+
+            .monospaced {
+                font-family: monospace;
+            }
+            .highlightvalue {
+                border: 1px dotted green; 
+                font-weight:bold;
+            }
+        </style>
+        <meta name="keywords" content="Fallout,Fallout 76,RNG,Random,Chances,Leveled,Leveled List,LVLI,Datamine,Patch,Diff,Difference,Comparison">
+    </head>
+    <body>
+        <center>
+            <span style="font-size: 36px; font-weight: bold;">Fallout 76 Patch Difference Viewer (0.0.8)</span><br/>
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <td>
+                        Patch (left):&nbsp;
+                        <select id='versionleft'>
+                            <option value='P19'>Update 19: 19th May, 2020</option>
+                            <option value='P20'>Update 20: 30th June, 2020</option>
+                            <option value='P21'>Update 21: 4th August, 2020</option>
+                            <option value='P21A'>Update 21.1: 18th August, 2020</option>
+                            <option value='P22'>Update 22: 15th September, 2020</option>
+                            <option value='P22A'>Update 22.1: 29th September, 2020</option>
+                            <option value='P23'>Update 23: 13th October, 2020</option>
+                            <option value='P24'>Update 24: 24th November, 2020</option>
+                            <option value='P24A'>Update 24.1: 15th December, 2020</option>
+                            <option value='P25'>Update 25: 26th January, 2021</option>
+                            <option value='P26'>Update 26: 27th April, 2021</option>
+                            <option value='P27'>Update 27: 25th May, 2021</option>
+                            <option value='P28'>Update 28: 7th July, 2021</option>
+                            <option value='P29'>Update 29: 3rd August, 2021</option>
+                            <option value='P30'>Update 30: 8th September, 2021</option>
+                            <option value='P31'>Update 31: 19th October, 2021</option>
+                            <option value='P32'>Update 32: 8th December, 2021</option>
+                            <option value='P33'>Update 33: 1st March, 2022</option>
+                            <option value='P33A'>Update 33A: 12th April, 2022</option>
+                            <option value='P34'>Update 34: 14th June, 2022</option>
+                            <option value='P37'>Update 37: 26th July, 2022</option>
+                            <option value='P38'>Update 38: 13th September, 2022</option>
+                            <option value='P39'>Update 39: 25th October, 2022</option>
+                            <option value='P40'>Update 40: 6th December, 2022</option>
+                            <option value='P41'>Update 41: 24th January, 2023</option>
+                            <option value='P42' selected='selected'>Update 42: 28th February, 2023</option>
+                            <option value='P43'>Update 43: 18th April, 2023 (latest)</option>
+                        </select>
+                    </td>
+                    <td>
+                        Patch (right):
+                        <select id='versionright'>
+                            <option value='P19'>Update 19: 19th May, 2020</option>
+                            <option value='P20'>Update 20: 30th June, 2020</option>
+                            <option value='P21'>Update 21: 4th August, 2020</option>
+                            <option value='P21A'>Update 21.1: 18th August, 2020</option>
+                            <option value='P22'>Update 22: 15th September, 2020</option>
+                            <option value='P22A'>Update 22.1: 29th September, 2020</option>
+                            <option value='P23'>Update 23: 13th October, 2020</option>
+                            <option value='P24'>Update 24: 24th November, 2020</option>
+                            <option value='P24A'>Update 24.1: 15th December, 2020</option>
+                            <option value='P25'>Update 25: 26th January, 2021</option>
+                            <option value='P26'>Update 26: 27th April, 2021</option>
+                            <option value='P27'>Update 27: 25th May, 2021</option>
+                            <option value='P28'>Update 28: 7th July, 2021</option>
+                            <option value='P29'>Update 29: 3rd August, 2021</option>
+                            <option value='P30'>Update 30: 8th September, 2021</option>
+                            <option value='P31'>Update 31: 19th October, 2021</option>
+                            <option value='P32'>Update 32: 8th December, 2021</option>
+                            <option value='P33'>Update 33: 1st March, 2022</option>
+                            <option value='P33A'>Update 33A: 12th April, 2022</option>
+                            <option value='P34'>Update 34: 14th June, 2022</option>
+                            <option value='P37'>Update 37: 26th July, 2022</option>
+                            <option value='P38'>Update 38: 13th September, 2022</option>
+                            <option value='P39'>Update 39: 25th October, 2022</option>
+                            <option value='P40'>Update 40: 6th December, 2022</option>
+                            <option value='P41'>Update 41: 24th January, 2023</option>
+                            <option value='P42'>Update 42: 28th February, 2023</option>
+                            <option value='P43' selected='selected'>Update 43: 18th April, 2023 (latest)</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="fulldata"><label for="fulldata">Load all data</label>
+                    </td>
+                    <td rowspan="2" style="padding-left: 25px;">
+                        <button id='resetPage'>Reset</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; padding-top: 15px;">
+                        <button id="datasetEDID">Load Editor IDs</button>&nbsp;&nbsp;
+                        <button id="datasetGLOB">Load Globals</button>&nbsp;&nbsp;
+                        <button id="datasetCURV">Load Curve Tables</button>&nbsp;&nbsp;
+                        <button id="datasetLVLI">Load Leveled Lists</button>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table>
+                <tr>
+                    <td>
+                        Filter by Group, FormID, Editor ID or Description: <input type="text" id="filterdiff" style="width: 600px">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="diffadded" checked><label for="diffadded">Additions</label>&nbsp;<span id='addcount'></span>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffmodified" checked><label for="diffmodified">Modifications</label>&nbsp;<span id='modcount'></span>&nbsp;&nbsp;
+                        <input type="checkbox" id="diffremoved" checked><label for="diffremoved">Removals</label>&nbsp;<span id='removecount'></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Sort by: <select id="sortby">
+                            <option value="file">File order</option>
+                            <option value="formid">FormID</option>
+                            <option value="group_formid">Group + FormID</option>
+                            <option value="editoridlast" selected>Editor ID (no ids last)</option>
+                            <option value="editoridfirst">Editor ID (no ids first)</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table id="difftable">
+                <tr>
+                    <td id="diffleft" style='text-align: center; font-weight: bold; border-bottom: 1px solid black;'>
+
+                    </td>
+                    <td style='text-align: center; font-weight: bold; border-bottom: 1px solid black; width: 50px;'>
+
+                    </td>
+                    <td id="diffright" style='text-align: center; font-weight: bold; border-bottom: 1px solid black;'>
+
+                    </td>
+                </tr>
+            </table>
+        </center>
+        <script>
+            // property key is the FormID, property value is the Group string (4chars) concatenated with the EditorID
+            var edids = {};
+            // property key is the FormID, property value is the global float
+            var globals = {};
+            // property key is the FormID, property value is the leveled list object
+            var leveledLists = {};
+            // property key is the FormID, property value is an array of objects with the form { "x": 0, "y" : 0 }
+            var curves = {};
+
+            var leftData = {};
+            var leftEdids = {};
+            var rightData = {};
+            var rightEdids = {};
+
+            // called to render the appropriate difference
+            var renderDiffFunc = undefined;
+
+            function loadScript(id, src, callback) {
+                var r = false;
+                var s = document.createElement('script');
+                s.id = id;
+                s.type = 'text/javascript';
+                s.src = src;
+                s.onload = s.onreadystatechange = function() {
+                    //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+                    if ( !r && (!this.readyState || this.readyState == 'complete') ) {
+                        r = true;
+                        callback(s);
+                    }
+                };
+                var t = document.getElementsByTagName('script')[0];
+                t.parentNode.insertBefore(s, t);
+            }
+
+            function isChecked(id) {
+                return document.getElementById(id).checked;
+            }
+
+            function valueOf(id) {
+                var sel = document.getElementById(id);
+                if (sel.selectedIndex !== undefined) {
+                    return sel.options[sel.selectedIndex].value;
+                }
+                return sel.value;
+            }
+
+            function textOf(id) {
+                var sel = document.getElementById(id);
+                return sel.options[sel.selectedIndex].text;
+            }
+
+            function removeOf(id) {
+                var t = document.getElementById(id);
+                if (t != null) {
+                    t.parentNode.removeChild(t);
+                }
+            }
+
+            function doLoad(mode) {
+                var versionLeft = valueOf("versionleft");
+                var versionRight = valueOf("versionright");
+                document.getElementById("diffleft").innerText = textOf("versionleft");
+                document.getElementById("diffright").innerText = textOf("versionright");
+
+                var fileName = undefined;
+                var saveFunc = undefined;
+                renderDiffFunc = undefined;
+
+                var postfix = "";
+                if (isChecked("fulldata")) {
+                    postfix = "_full"
+                }
+
+                if (mode === "edid") {
+                    fileName = "SeventySix_EDIDs" + postfix + ".js";
+                    saveFunc = () => edids;
+                    renderDiffFunc = diffAsEditorIDs;
+                }
+                else if (mode === "glob") {
+                    fileName = "SeventySix_GLOBs" + postfix + ".js";
+                    saveFunc = () => globals;
+                    renderDiffFunc = diffAsGlobals;
+                }
+                else if (mode === "curv") {
+                    fileName = "SeventySix_CURVs" + postfix + ".js";
+                    saveFunc = () => curves;
+                    renderDiffFunc = diffAsCurves;
+                }
+                else if (mode === "lvli") {
+                    fileName = "SeventySix_LVLIs.js";
+                    saveFunc = () => leveledLists;
+                    renderDiffFunc = diffAsLeveledLists;
+                }
+
+                if (fileName !== undefined) {
+                    removeOf("leftEdids");
+                    removeOf("leftScript");
+                    removeOf("rightEdids");
+                    removeOf("rightScript");
+                    clearTable(document.getElementById("difftable"), 1);
+
+                    loadScript("leftEdids", "data/" + versionLeft + "_SeventySix_EDIDs" + postfix + ".js", node => {
+                        leftEdids = edids;
+                        loadScript("leftScript", "data/" + versionLeft + "_" + fileName, node => {
+                            leftData = saveFunc();
+                            loadScript("rightEdids", "data/" + versionRight + "_SeventySix_EDIDs" + postfix + ".js", node => {
+                                rightEdids = edids;
+                                loadScript("rightScript", "data/" + versionRight + "_"  + fileName, node => {
+                                    rightData = saveFunc();
+
+                                    updateDiffTable();
+                                });
+                            });
+                        });
+                    });
+                }
+            }
+
+            function clearTable(tbl, skipRows) {
+                if (skipRows === undefined) {
+                    skipRows = 0;
+                }
+                for (var i = tbl.rows.length - 1; i >= skipRows; i--) {
+                    tbl.deleteRow(i);
+                }
+            }
+
+            function updateDiffTable() {
+                if (renderDiffFunc !== undefined) {
+                    renderDiffFunc();
+                }
+            }
+
+            function getInfo(isLeft, key) {
+                var list = isLeft ? leftEdids : rightEdids;
+                var entry = list[key];
+                if (entry !== undefined) {
+                    var group = entry.substring(0, 4);
+                    var desc = "";
+                    var editorId = "";
+                    var idx = entry.indexOf(" ", 4);
+                    if (idx >= 0) {
+                        editorId = entry.substring(4, idx);
+                        desc = entry.substring(idx + 1);
+                    } else {
+                        editorId = entry.substring(4);
+                    }
+                    return {
+                        group: group,
+                        editorId: editorId,
+                        description: desc
+                    };
+                }
+                return {
+                    group: "????",
+                    editorId: "",
+                    description: ""
+                };
+            }
+
+            function applyTextFilter(interest) {
+                // filter out entries
+                var searchText = document.getElementById("filterdiff").value;
+                
+                if (searchText !== "") {
+                    var oldInterest = interest;
+                    interest = [];
+
+                    var regexps = parseSearchText(searchText);
+
+                    for (var entry of oldInterest) {
+                        var valuesToCheck = [ entry.nozeroId ];
+                        if (entry.leftInfo !== undefined) {
+                            valuesToCheck.push(entry.leftInfo.editorId);
+                            valuesToCheck.push(entry.leftInfo.group);
+                            if (entry.leftInfo.description !== "") {
+                                valuesToCheck.push(entry.leftInfo.description);
+                            }
+                        }
+                        if (entry.rightInfo !== undefined) {
+                            valuesToCheck.push(entry.rightInfo.editorId);
+                            valuesToCheck.push(entry.rightInfo.group);
+                            if (entry.rightInfo.description !== "") {
+                                valuesToCheck.push(entry.rightInfo.description);
+                            }
+                        }
+
+                        rgx:
+                        for (var regexp of regexps) {
+
+                            for (var toCheck of valuesToCheck) {
+                                if (regexp.test(toCheck)) {
+                                    interest.push(entry);
+                                    break rgx;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return interest;
+            }
+
+            function applySort(interest) {
+                var sortBy = valueOf("sortby");
+                var sortfunc;
+                if (sortBy === "file") {
+                    return;
+                }
+                else if (sortBy == "formid") {
+                    sortfunc = (a, b) => {
+                        return a.id.localeCompare(b.id);
+                    };
+                }
+                else if (sortBy == "group_formid") {
+                    sortfunc = (a, b) => {
+                        var ag = "";
+                        if (a.leftInfo !== undefined) {
+                            ag = a.leftInfo.group;
+                        }
+                        else if (a.rightInfo !== undefined) {
+                            ag = a.rightInfo.group;
+                        }
+
+                        var bg = "";
+                        if (b.leftInfo !== undefined) {
+                            bg = b.leftInfo.group;
+                        }
+                        else if (b.rightInfo !== undefined) {
+                            bg = b.rightInfo.group;
+                        }
+
+                        var c = ag.localeCompare(bg);
+                        if (c == 0) {
+                            return a.id.localeCompare(b.id);
+                        }
+                        return c;
+                    };
+                }
+                else if (sortBy == "editoridlast") {
+                    sortfunc = (a, b) => {
+                        var ad = "";
+                        if (a.rightInfo !== undefined) {
+                            ad = a.rightInfo.editorId;
+                        }
+                        else if (a.leftInfo !== undefined) {
+                            ad = a.leftInfo.editorId;
+                        }
+
+                        var bd = "";
+                        if (b.rightInfo !== undefined) {
+                            bd = b.rightInfo.editorId;
+                        }
+                        else if (b.leftInfo !== undefined) {
+                            bd = b.leftInfo.editorId;
+                        }
+
+                        if (ad === "" && bd !== "") {
+                            return 1;
+                        }
+                        if (ad !== "" && bd === "") {
+                            return -1;
+                        }
+
+                        return ad.localeCompare(bd);
+                    };
+                }
+                else if (sortBy == "editoridfirst") {
+                    sortfunc = (a, b) => {
+                        var ad = "";
+                        if (a.rightInfo !== undefined) {
+                            ad = a.rightInfo.editorId;
+                        }
+                        else if (a.leftInfo !== undefined) {
+                            ad = a.leftInfo.editorId;
+                        }
+
+                        var bd = "";
+                        if (b.rightInfo !== undefined) {
+                            bd = b.rightInfo.editorId;
+                        }
+                        else if (b.leftInfo !== undefined) {
+                            bd = b.leftInfo.editorId;
+                        }
+
+                        if (ad === "" && bd !== "") {
+                            return -1;
+                        }
+                        if (ad !== "" && bd === "") {
+                            return 1;
+                        }
+
+                        return ad.localeCompare(bd);
+                    };
+                }
+
+                interest.sort(sortfunc);
+            }
+
+            function computeDiff(entryCompareFunc) {
+                var interest = [];
+                var diffFound = false;
+                var isAdd = isChecked("diffadded");
+                var isModified = isChecked("diffmodified");
+                var isRemoved = isChecked("diffremoved");
+                var isFull = isChecked("fulldata")
+                // find additions in right
+                for (var key in rightData) {
+                    var rightInfo = getInfo(false, key);
+                    if (!isFull) {
+                        if (rightInfo.editorId === "") {
+                            continue;
+                        }
+                    }
+
+                    var rightEntry = rightData[key];
+                    var leftEntry = leftData[key];
+
+                    if (leftEntry === undefined) {
+                        diffFound = true;
+                        if (isAdd) {
+                            interest.push({
+                                type: "added",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: undefined,
+                                leftValue: undefined,
+                                rightInfo: rightInfo,
+                                rightValue: rightEntry
+                            });
+                        }
+                    } else {
+                        leftInfo = getInfo(true, key);
+
+                        if (entryCompareFunc(leftEntry, leftInfo, rightEntry, rightInfo)) {
+                            diffFound = true;
+                            if (isModified) {
+                                interest.push({
+                                    type: "modified",
+                                    id: key,
+                                    nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                    leftInfo: leftInfo,
+                                    leftValue: leftEntry,
+                                    rightInfo: rightInfo,
+                                    rightValue: rightEntry
+                                });
+                            }
+                        }
+                    }
+                }
+                // find removals on the right
+                for (var key in leftData) {
+                    var leftInfo = getInfo(true, key);
+                    if (!isFull) {
+                        if (leftInfo.editorId === "") {
+                            continue;
+                        }
+                    }
+
+                    var leftEntry = leftData[key];
+                    var rightEntry = rightData[key];
+                    if (rightEntry === undefined) {
+                        diffFound = true;
+                        if (isRemoved) {
+                            interest.push({
+                                type: "removed",
+                                id: key,
+                                nozeroId: key.replace(/^0+/, "").toLowerCase(),
+                                leftInfo: leftInfo,
+                                leftValue: leftEntry,
+                                rightInfo: undefined,
+                                rightValue: undefined
+                            });
+                        }
+                    }
+                }
+
+                return {
+                    interest: interest,
+                    diffFound: diffFound
+                };
+            }
+
+            function countChanges(list) {
+                var addcnt = 0;
+                var modcnt = 0;
+                var remcnt = 0;
+
+                for (var e of list) {
+                    if (e.type === "added") {
+                        addcnt++;
+                    }
+                    if (e.type === "modified") {
+                        modcnt++;
+                    }
+                    if (e.type === "removed") {
+                        remcnt++;
+                    }
+                }
+                document.getElementById("addcount").innerText = "(" + addcnt + ")";
+                document.getElementById("modcount").innerText = "(" + modcnt + ")";
+                document.getElementById("removecount").innerText = "(" + remcnt + ")";
+            }
+
+            function diffAsEditorIDs() {
+
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    return leftInfo.group !== rightInfo.group ||
+                                leftInfo.editorId !== rightInfo.editorId ||
+                                leftInfo.description !== rightInfo.description;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+                countChanges(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+
+                        if (entry.leftInfo !== undefined) {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined) {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+                        }
+                    }
+                }
+            }
+
+            function diffAsGlobals() {
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    return leftEntry != rightEntry;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+                countChanges(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
+                        }
+                        if (entry.leftValue !== undefined) {
+                            cll.innerHTML += "&nbsp;<span style='border: 1px dotted green; font-weight:bold'>&nbsp;" + entry.leftValue + "&nbsp;</span>";
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+                        }
+                        if (entry.rightValue !== undefined) {
+                            cll.innerHTML += "&nbsp;<span class='highlightvalue'>&nbsp;" + entry.rightValue + "&nbsp;</span>";
+                        }
+                    }
+                }
+            }
+
+            function dedupAndFix(entries) {
+                if (entries.length != 0) {
+                    var first = entries[0];
+                    var result = [];
+                    if (first.x === undefined) {
+                        var idx = 0;
+                        for (var e of entries) {
+                            result.push({ x: idx, y: e });
+                            idx++;
+                        }
+                    } else {
+                        var map = new Map();
+                        for (var e of entries) {
+                            map.set(e.x, e.y);
+                        }
+                        for (var e of map.entries()) {
+                            result.push({ x: e[0], y: e[1]});
+                        }
+                    }
+                    return result;
+                }
+                return entries;
+            }
+
+            function diffAsCurves() {
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    leftEntry = dedupAndFix(leftEntry);
+                    rightEntry = dedupAndFix(rightEntry);
+                    if (leftEntry.length != rightEntry.length) {
+                        return true;
+                    };
+
+                    var leftMap = new Map();
+                    for (var xy of leftEntry) {
+                        leftMap.set(xy.x, xy.y);
+                    }
+
+                    for (var xy of rightEntry) {
+                        var leftY = leftMap.get(xy.x);
+                        if (leftY == null) {
+                            return true;
+                        }
+                        if (leftY != xy.y) {
+                            return true;
+                        }
+                        leftMap.delete(xy.x);
+                    }
+                    if (leftMap.size != 0) {
+                        return true;
+                    }
+                    return false;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+                countChanges(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
+                    for (var entry of interest) {
+
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        var cll = rw.insertCell(rw.cells.length);
+                        cll.style.borderTop = "1px solid #808080";
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.borderTop = "1px solid #808080";
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+
+                            if (entry.type === "added") {
+                                let dotdotdot = document.createElement("span");
+                                dotdotdot.innerText = "...";
+                                dotdotdot.style.border = "1px dotted black";
+                                dotdotdot.style.cursor = "pointer";
+                                cll.appendChild(dotdotdot);
+
+                                let ctadd = document.createElement("div");
+                                ctadd.style.display = "none"
+                                cll.appendChild(ctadd);
+
+                                dotdotdot.onclick = evt => {
+                                    if (ctadd.style.display !== "block") {
+                                        ctadd.style.display = "block";
+                                    } else {
+                                        ctadd.style.display = "none";
+                                    }
+                                };
+
+                                var xyi = 0;
+                                for (var xy of dedupAndFix(entry.rightValue)) {
+                                    if (xyi > 0) {
+                                        ctadd.appendChild(document.createElement("br"));
+                                    }
+                                    ctadd.appendChild(document.createTextNode("X = " + xy.x + "; Y = " + xy.y));
+                                    xyi++;
+                                }
+                            }
+                        }
+                        if (entry.rightValue !== undefined) {
+                            // TODO curve table diff
+                        }
+
+                        if (entry.type === "modified") {
+                            var unionX = [];
+                            var leftMap = new Map();
+
+                            for (var xy of dedupAndFix(entry.leftValue)) {
+                                leftMap.set(xy.x, xy.y);
+                                if (unionX.indexOf(xy.x) < 0) {
+                                    unionX.push(xy.x);
+                                }
+                            }
+                            var rightMap = new Map();
+                            for (var xy of dedupAndFix(entry.rightValue)) {
+                                rightMap.set(xy.x, xy.y);
+                                if (unionX.indexOf(xy.x) < 0) {
+                                    unionX.push(xy.x);
+                                }
+                            }
+
+                            unionX.sort((a, b) => a - b);
+
+                            for (var x of unionX) {
+                                var leftY = leftMap.get(x);
+                                var rightY = rightMap.get(x);
+
+                                if (leftY == null && rightY != null) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerText = "+";
+                                    cll.style.backgroundColor = "#C0FFC0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.innerHTML = "X = " + x + ", Y = " + rightY;
+                                }
+                                else if (leftY != null && rightY == null) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+                                    cll.innerHTML = "X = " + x + ", Y = " + leftY;
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerText = "-";
+                                    cll.style.backgroundColor = "#FFC0C0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                } 
+                                else if (leftY != rightY) {
+                                    var rw = tbl.insertRow(tbl.rows.length);
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "right";
+                                    cll.innerHTML = "X = " + x + ", Y = <span class='highlightvalue'>&nbsp;" + leftY + "&nbsp;</span>";
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.style.textAlign = "center";
+                                    cll.innerHTML = "&#x270E;";
+                                    cll.style.backgroundColor = "#FFFFC0"; 
+
+                                    cll = rw.insertCell(rw.cells.length);
+                                    cll.innerHTML = "X = " + x + ", Y = <span class='highlightvalue'>&nbsp;" + rightY + "&nbsp;</span>";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            function arrayEquals(left, right, onEntry) {
+                if (left === undefined && right === undefined) {
+                    return true;
+                }
+                if (left !== undefined && right !== undefined) {
+                    if (left.length === right.length) {
+                        for (var i = 0; i < left.length; i++) {
+                            if (!onEntry(left[i], right[i])) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function compareConditions(cleft, cright) {
+                return cleft.FunctionName === cright.FunctionName
+                    && cleft.Value === cright.Value
+                    && cleft.Ref === cright.Ref
+                    && cleft.Param1Value === cright.Param1Value
+                    && cleft.Param1Ref === cright.Param1Ref
+                    && cleft.Param2Value === cright.Param2Value
+                    && cleft.Param2Ref === cright.Param2Ref
+                    && cleft.Operator === cright.Operator
+                    //&& cleft.RunOn === cright.RunOn
+                ;
+            }
+
+            function diffAsLeveledLists() {
+                var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
+                    var result = 
+                        leftEntry.LVLF === rightEntry.LVLF
+                        && leftEntry.LVMV === rightEntry.LVMV
+                        && leftEntry.LVMG === rightEntry.LVMG
+                        && leftEntry.LVMT === rightEntry.LVMT
+                        && leftEntry.LVCV === rightEntry.LVCV
+                        && leftEntry.LVLG === rightEntry.LVLG
+                        && leftEntry.LVCT === rightEntry.LVCT
+                        && arrayEquals(leftEntry.Conditions, rightEntry.Conditions, compareConditions)
+                        && arrayEquals(leftEntry.Entries, rightEntry.Entries, (eleft, eright) => {
+                            return eleft.Object === eright.Object
+                                && eleft.LVOV === eright.LVOV
+                                && eleft.LVOC === eright.LVOC
+                                && eleft.LVOT === eright.LVOT
+                                && eleft.LVLV === eright.LVLV
+                                && eleft.LVOG === eright.LVOG
+                                && eleft.LVIV === eright.LVIV
+                                && eleft.LVIG === eright.LVIG
+                                && arrayEquals(eleft.Conditions, eright.Conditions, compareConditions)
+                            ;
+                        })
+                    ;
+                    return !result;
+                });
+                var diffFound = result.diffFound;
+
+                interest = applyTextFilter(result.interest);
+                applySort(interest);
+                countChanges(interest);
+
+                var tbl = document.getElementById("difftable");
+                clearTable(tbl, 1);
+                if (interest.length == 0) {
+
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.colSpan = 3;
+                    cll.style.fontStyle = "italic";
+                    cll.style.textAlign = "center";
+                    if (diffFound) {
+                        cll.innerText = "Differences were filtered out.";
+                    } else {
+                        cll.innerText = "No differences were found";
+                    }
+                } else {
+                    var versionleft = valueOf("versionleft");
+                    var versionright = valueOf("versionright");
+
+                    for (var entry of interest) {
+                        var rw = tbl.insertRow(tbl.rows.length);
+                        rw.style.borderTop = "1px solid #808080";
+                        var cll = rw.insertCell(rw.cells.length);
+                        if (entry.leftInfo !== undefined || entry.type !== "added") {
+                            cll.innerHTML = formatEdid(entry.id, entry.leftInfo, versionleft);
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        cll.style.textAlign = "center";
+
+                        if (entry.type === "added") {
+                            cll.innerText = "+";
+                            cll.style.backgroundColor = "#80FF80"; 
+                        }
+                        else if (entry.type === "modified") {
+                            cll.innerHTML = "&#x270E;";
+                            cll.style.backgroundColor = "#FFFF80"; 
+                        } else {
+                            cll.innerText = "-";
+                            cll.style.backgroundColor = "#FF8080"; 
+                        }
+
+                        cll = rw.insertCell(rw.cells.length);
+                        if (entry.rightInfo !== undefined || entry.type !== "removed") {
+                            cll.innerHTML = formatEdid(entry.id, entry.rightInfo, versionright);
+                        }
+
+                        if (entry.type === "modified") {
+                            tryAppendDiff(tbl, "Flags: ", flagsToText(entry.leftValue.LVLF), flagsToText(entry.rightValue.LVLF));
+                            tryAppendDiff(tbl, "Max: ", entry.leftValue.LVMV, entry.rightValue.LVMV);
+                            tryAppendDiff(tbl, "Max (Global): ", entry.leftValue.LVMG, entry.rightValue.LVMG);
+                            tryAppendDiff(tbl, "Max (Curve): ", entry.leftValue.LVMT, entry.rightValue.LVMT);
+                            tryAppendDiff(tbl, "Chance None: ", entry.leftValue.LVCV, entry.rightValue.LVCV);
+                            tryAppendDiff(tbl, "Chance None (Global): ", entry.leftValue.LVLG, entry.rightValue.LVLG);
+                            tryAppendDiff(tbl, "Chance None (Curve): ", entry.leftValue.LVCT, entry.rightValue.LVCT);
+
+                            var leftList = leveledListEntries(true, entry.leftValue.Entries);
+                            var rightList = leveledListEntries(false, entry.rightValue.Entries);
+
+                            var leftIdx = 0;
+                            var rightIdx = 0;
+
+                            while (leftIdx < leftList.length && rightIdx < rightList.length) {
+                                var leftObj = leftList[leftIdx];
+                                var rightObj = rightList[rightIdx];
+
+                                var c = leftObj.id.localeCompare(rightObj.id);
+
+                                if (c < 0) {
+                                    // removed
+                                    tryAppendDiff(tbl, "* ", formatEdid(leftObj.id, leftObj.info, versionleft), undefined, true);
+                                    leftIdx++;
+                                }
+                                else if (c > 0) {
+                                    tryAppendDiff(tbl, "* ", undefined, formatEdid(rightObj.id, rightObj.info, versionright), true);
+                                    // added
+                                    rightIdx++;
+                                } else {
+                                    // same entry
+                                    // different count
+                                    if (leftObj.count !== rightObj.count) {
+                                        tryAppendDiff(tbl, "* ", 
+                                            formatEdid(leftObj.id, leftObj.info, versionleft) + " (x " + leftObj.count + ")",
+                                            formatEdid(rightObj.id, rightObj.info, versionright) + " (x " + rightObj.count + ")",
+                                            true
+                                        );
+                                    }
+                                    leftIdx++;
+                                    rightIdx++;
+                                }
+                            }
+
+                            while (leftIdx < leftList.length) {
+                                var leftObj = leftList[leftIdx++];
+                                // removed
+                                tryAppendDiff(tbl, "* ", formatEdid(leftObj.id, leftObj.info, versionleft), undefined, true);
+                            }
+                            while (rightIdx < rightList.length) {
+                                var rightObj = rightList[rightIdx++];
+                                // added
+                                tryAppendDiff(tbl, "* ", undefined, formatEdid(rightObj.id, rightObj.info, versionright), true);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function flagsToText(value) {
+                var result = "(" + value + ")";
+                if ((value & 4) != 0) {
+                    result += " +all";
+                } else
+                if ((value & 64) != 0) {
+                    result += " +first-match-all-conditions";
+                } else {
+                    if ((value & 1) != 0) {
+                        result += " +all-levels";
+                    } else {
+                        result += " +closest-levels"
+                    }
+                    if ((value & 2) != 0) {
+                        result += " +parent-quantity-randomly";
+                    } else {
+                        result += " +one-randomly"
+                    }
+                }
+                return result;
+            }
+
+            function tryAppendDiff(tbl, title, left, right, noStyle) {
+                if (left !== right) {
+                    var rw = tbl.insertRow(tbl.rows.length);
+                    var cll = rw.insertCell(rw.cells.length);
+                    cll.style.textAlign = "right";
+                    cll.style.paddingRight = "30px";
+                    if (left !== undefined) {
+                        if (noStyle) {
+                            cll.innerHTML = "<i>" + title + left + "</i>"; 
+                        } else {
+                            cll.innerHTML = "<i>" + title + "<span class='highlightvalue'>&nbsp;" + left + "&nbsp;</span></i>";
+                        }
+                    }
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.style.textAlign = "center";
+
+                    if (left === undefined && right !== undefined) {
+                        cll.innerText = "+";
+                        cll.style.backgroundColor = "#80FF80"; 
+                    }
+                    else if (left !== undefined && right !== undefined) {
+                        cll.innerHTML = "&#x270E;";
+                        cll.style.backgroundColor = "#FFFF80"; 
+                    } else {
+                        cll.innerText = "-";
+                        cll.style.backgroundColor = "#FF8080"; 
+                    }
+
+                    cll = rw.insertCell(rw.cells.length);
+                    cll.style.paddingLeft = "30px";
+                    if (right !== undefined) {
+                        if (noStyle) {
+                            cll.innerHTML = "<i>" + title + right + "</i>";
+                        } else {
+                            cll.innerHTML = "<i>" + title + "<span class='highlightvalue'>&nbsp;" + right + "&nbsp;</span></i>";
+                        }
+                    }
+                }
+            }
+
+            function leveledListEntries(isLeft, list) {
+                var result = [];
+                if (list !== undefined) {
+                    for (var e of list) {
+                        var f = {
+                            id: e.Object,
+                            info: getInfo(isLeft, e.Object),
+                            count: 0
+                        };
+                        if (e.LVIV !== undefined) {
+                            f.count = e.LVIV;
+                        }
+                        if (e.LVIG !== undefined) {
+                            f.count = e.LVIG;
+                        }
+                        result.push(f);
+                    }
+                    result.sort((a, b) => {
+                        var c = a.id.localeCompare(b.id);
+
+                        if (c == 0) {
+                            if (typeof(a.count) === "string" || typeof(b.count) === "string") {
+                                c = ("" + a.count).localeCompare("" + (b.count));
+                            } else {
+                                c = a.count - b.count;
+                            }
+                        }
+                        return c;
+                    });
+                }
+                return result;
+            }
+
+            function formatEdid(key, info, patchId) {
+                var txt = "";
+                if (info === undefined) {
+                    txt = "<span class='monospaced'>????:" + key + " &lt;???&gt;</span>";
+                } else {
+                    txt = "<span class='monospaced'>" + info.group + ":" + key + " &lt;" + info.editorId + "&gt;</span>";
+                }
+                if (info !== undefined && info.description !== "") {
+                    txt += " <b>" + info.description + "</b>";
+                }
+                if (info.group === "LVLI") {
+                    var lnk = "chances.html?patch=" + patchId + "&formids=" + key;
+                    txt += "&nbsp;<a href='" + lnk + "' target='_blank' title='Open in new window' style='font-weight: bold; border: 1px solid blue;'>&nbsp;&#x2197;&nbsp;</a>"
+                }
+                return "<a href='https://nukacrypt.com/database/json/" + key + "' target='_blank' title='See Nukacrypt data.'>&#x2622;</a>&nbsp;" + txt;
+            }
+
+            function parseSearchText(text) {
+                var result = text.split(",");
+                for (var i = 0; i < result.length; i++) {
+                    // remove spaces
+                    var entry = result[i].trim();
+
+                    entry = entry.replace(" ", "\\s");;
+                    entry = entry.replace(/\*/g, ".*");
+                    entry = entry.replace(/^0+/, "");
+                    entry = entry.toLowerCase();
+
+                    result[i] = new RegExp("^" + entry + "$", "i");
+                }
+
+                return result;
+            }
+
+            document.getElementById("datasetEDID").onclick = () => doLoad("edid");
+            document.getElementById("datasetGLOB").onclick = () => doLoad("glob");
+            document.getElementById("datasetCURV").onclick = () => doLoad("curv");
+            document.getElementById("datasetLVLI").onclick = () => doLoad("lvli");
+
+            document.getElementById("resetPage").onclick = function() {
+                window.location = "patchdiff.html";
+            }
+            document.getElementById("filterdiff").oninput = updateDiffTable;
+            document.getElementById("diffadded").oninput = updateDiffTable;
+            document.getElementById("diffmodified").oninput = updateDiffTable;
+            document.getElementById("diffremoved").oninput = updateDiffTable;
+            document.getElementById("sortby").oninput = updateDiffTable;
+
+            doLoad("lvli");
+        </script>
+    </body>
+</html>
