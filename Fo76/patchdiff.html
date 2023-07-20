@@ -9,7 +9,7 @@
             td {
                 padding: 2px;
             }
-            
+
             table.infoTable {
                border: 1px solid black;
                border-collapse: collapse;
@@ -22,7 +22,7 @@
                 font-family: monospace;
             }
             .highlightvalue {
-                border: 1px dotted green; 
+                border: 1px dotted green;
                 font-weight:bold;
             }
         </style>
@@ -41,28 +41,30 @@
                         Patch (left):&nbsp;
                         <select id='versionleft'>
                             <option value='P43' >Update 43: 18th April, 2023</option>
+                            <option value='P44' >Update 44: 20th June, 2023</option>
+                            <option value='P45' >Update 45: 18th July, 2023</option>
                             <option value='PTS_4_26_23' >PTS: 26th April, 2023</option>
                             <option value='PTS_5_1_23' >PTS: 1st May, 2023</option>
                             <option value='PTS_5_8_23' >PTS: 8th May, 2023</option>
                             <option value='PTS_5_22_23' >PTS: 22nd May, 2023</option>
-                            <option value='P44' selected='selected' >Update 44: 20th June, 2023</option>
                             <option value='PTS_6_30_23' >PTS: 30th June, 2023</option>
-                            <option value='PTS_7_15_23' >PTS: 15th July, 2023</option>
-                            <option value='P45' >Update 45: 18th July, 2023 (latest)</option>
+                            <option value='PTS_7_15_23' selected='selected' >PTS: 15th July, 2023</option>
+                            <option value='PTS_7_20_23' >PTS: 20th July, 2023 (latest)</option>
                         </select>
                     </td>
                     <td>
                         Patch (right):
                         <select id='versionright'>
                             <option value='P43' >Update 43: 18th April, 2023</option>
+                            <option value='P44' >Update 44: 20th June, 2023</option>
+                            <option value='P45' >Update 45: 18th July, 2023</option>
                             <option value='PTS_4_26_23' >PTS: 26th April, 2023</option>
                             <option value='PTS_5_1_23' >PTS: 1st May, 2023</option>
                             <option value='PTS_5_8_23' >PTS: 8th May, 2023</option>
                             <option value='PTS_5_22_23' >PTS: 22nd May, 2023</option>
-                            <option value='P44' >Update 44: 20th June, 2023</option>
                             <option value='PTS_6_30_23' >PTS: 30th June, 2023</option>
                             <option value='PTS_7_15_23' >PTS: 15th July, 2023</option>
-                            <option value='P45' selected='selected' >Update 45: 18th July, 2023 (latest)</option>
+                            <option value='PTS_7_20_23' selected='selected' >PTS: 20th July, 2023 (latest)</option>
                         </select>
                     </td>
                     <td>
@@ -282,7 +284,7 @@
             function applyTextFilter(interest) {
                 // filter out entries
                 var searchText = document.getElementById("filterdiff").value;
-                
+
                 if (searchText !== "") {
                     var oldInterest = interest;
                     interest = [];
@@ -568,14 +570,14 @@
 
                         if (entry.type === "added") {
                             cll.innerText = "+";
-                            cll.style.backgroundColor = "#80FF80"; 
+                            cll.style.backgroundColor = "#80FF80";
                         }
                         else if (entry.type === "modified") {
                             cll.innerHTML = "&#x270E;";
-                            cll.style.backgroundColor = "#FFFF80"; 
+                            cll.style.backgroundColor = "#FFFF80";
                         } else {
                             cll.innerText = "-";
-                            cll.style.backgroundColor = "#FF8080"; 
+                            cll.style.backgroundColor = "#FF8080";
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -630,14 +632,14 @@
 
                         if (entry.type === "added") {
                             cll.innerText = "+";
-                            cll.style.backgroundColor = "#80FF80"; 
+                            cll.style.backgroundColor = "#80FF80";
                         }
                         else if (entry.type === "modified") {
                             cll.innerHTML = "&#x270E;";
-                            cll.style.backgroundColor = "#FFFF80"; 
+                            cll.style.backgroundColor = "#FFFF80";
                         } else {
                             cll.innerText = "-";
-                            cll.style.backgroundColor = "#FF8080"; 
+                            cll.style.backgroundColor = "#FF8080";
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -741,14 +743,14 @@
 
                         if (entry.type === "added") {
                             cll.innerText = "+";
-                            cll.style.backgroundColor = "#80FF80"; 
+                            cll.style.backgroundColor = "#80FF80";
                         }
                         else if (entry.type === "modified") {
                             cll.innerHTML = "&#x270E;";
-                            cll.style.backgroundColor = "#FFFF80"; 
+                            cll.style.backgroundColor = "#FFFF80";
                         } else {
                             cll.innerText = "-";
-                            cll.style.backgroundColor = "#FF8080"; 
+                            cll.style.backgroundColor = "#FF8080";
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -821,7 +823,7 @@
                                     cll = rw.insertCell(rw.cells.length);
                                     cll.style.textAlign = "center";
                                     cll.innerText = "+";
-                                    cll.style.backgroundColor = "#C0FFC0"; 
+                                    cll.style.backgroundColor = "#C0FFC0";
 
                                     cll = rw.insertCell(rw.cells.length);
                                     cll.innerHTML = "X = " + x + ", Y = " + rightY;
@@ -835,10 +837,10 @@
                                     cll = rw.insertCell(rw.cells.length);
                                     cll.style.textAlign = "center";
                                     cll.innerText = "-";
-                                    cll.style.backgroundColor = "#FFC0C0"; 
+                                    cll.style.backgroundColor = "#FFC0C0";
 
                                     cll = rw.insertCell(rw.cells.length);
-                                } 
+                                }
                                 else if (leftY != rightY) {
                                     var rw = tbl.insertRow(tbl.rows.length);
                                     cll = rw.insertCell(rw.cells.length);
@@ -848,7 +850,7 @@
                                     cll = rw.insertCell(rw.cells.length);
                                     cll.style.textAlign = "center";
                                     cll.innerHTML = "&#x270E;";
-                                    cll.style.backgroundColor = "#FFFFC0"; 
+                                    cll.style.backgroundColor = "#FFFFC0";
 
                                     cll = rw.insertCell(rw.cells.length);
                                     cll.innerHTML = "X = " + x + ", Y = <span class='highlightvalue'>&nbsp;" + rightY + "&nbsp;</span>";
@@ -891,7 +893,7 @@
 
             function diffAsLeveledLists() {
                 var result = computeDiff((leftEntry, leftInfo, rightEntry, rightInfo) => {
-                    var result = 
+                    var result =
                         leftEntry.LVLF === rightEntry.LVLF
                         && leftEntry.LVMV === rightEntry.LVMV
                         && leftEntry.LVMG === rightEntry.LVMG
@@ -952,14 +954,14 @@
 
                         if (entry.type === "added") {
                             cll.innerText = "+";
-                            cll.style.backgroundColor = "#80FF80"; 
+                            cll.style.backgroundColor = "#80FF80";
                         }
                         else if (entry.type === "modified") {
                             cll.innerHTML = "&#x270E;";
-                            cll.style.backgroundColor = "#FFFF80"; 
+                            cll.style.backgroundColor = "#FFFF80";
                         } else {
                             cll.innerText = "-";
-                            cll.style.backgroundColor = "#FF8080"; 
+                            cll.style.backgroundColor = "#FF8080";
                         }
 
                         cll = rw.insertCell(rw.cells.length);
@@ -1001,7 +1003,7 @@
                                     // same entry
                                     // different count
                                     if (leftObj.count !== rightObj.count) {
-                                        tryAppendDiff(tbl, "* ", 
+                                        tryAppendDiff(tbl, "* ",
                                             formatEdid(leftObj.id, leftObj.info, versionleft) + " (x " + leftObj.count + ")",
                                             formatEdid(rightObj.id, rightObj.info, versionright) + " (x " + rightObj.count + ")",
                                             true
@@ -1057,7 +1059,7 @@
                     cll.style.paddingRight = "30px";
                     if (left !== undefined) {
                         if (noStyle) {
-                            cll.innerHTML = "<i>" + title + left + "</i>"; 
+                            cll.innerHTML = "<i>" + title + left + "</i>";
                         } else {
                             cll.innerHTML = "<i>" + title + "<span class='highlightvalue'>&nbsp;" + left + "&nbsp;</span></i>";
                         }
@@ -1068,14 +1070,14 @@
 
                     if (left === undefined && right !== undefined) {
                         cll.innerText = "+";
-                        cll.style.backgroundColor = "#80FF80"; 
+                        cll.style.backgroundColor = "#80FF80";
                     }
                     else if (left !== undefined && right !== undefined) {
                         cll.innerHTML = "&#x270E;";
-                        cll.style.backgroundColor = "#FFFF80"; 
+                        cll.style.backgroundColor = "#FFFF80";
                     } else {
                         cll.innerText = "-";
-                        cll.style.backgroundColor = "#FF8080"; 
+                        cll.style.backgroundColor = "#FF8080";
                     }
 
                     cll = rw.insertCell(rw.cells.length);
